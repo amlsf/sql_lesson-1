@@ -3,7 +3,7 @@ import hackbright_app
 
 app = Flask(__name__)
 
-# web app to get github to get student grades
+# pair of handlers to take github to then get student grades
 @app.route("/")
 def get_github():
     return render_template("get_github.html")
@@ -18,7 +18,7 @@ def get_studentgrades():
 # Note need to put student_github in there so it passes through Jinja - left side goes to Jinja/html, right side references python var
     return html
 
-# get all student grades for particular project with links back to particular grades on all projects
+# get all student grades for particular project with links back to get_studentgrades()
 @app.route("/allgrades/<projectname>")
 def get_projectgrades(projectname):
     hackbright_app.connect_to_db()
