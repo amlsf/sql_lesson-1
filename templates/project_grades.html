@@ -1,0 +1,11 @@
+<html>
+    <body>
+        
+    {% for project in projects %}
+    <p>Student Github: <a href="http://localhost:5000/studentgrades?student={{project.github}}">{{project.github}}</a>; <b>Grade:{{project.grade}}</b></p>
+    {% endfor %}
+
+    <p>These are all the grades for a particular project.</p>
+
+    </body>
+</html>

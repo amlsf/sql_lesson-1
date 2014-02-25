@@ -7,15 +7,13 @@ def make_new_student(first_name, last_name, github):
     query = """INSERT into Students values (?, ?, ?)"""
     DB.execute(query, (first_name, last_name, github))
     CONN.commit()
-    print "Successfully added student: %s %s"%(first_name, last_name)
+    # No need to return anything, right? 
 
 def get_student_by_github(github):
     query = """SELECT first_name, last_name, github FROM Students WHERE github = ?"""
     DB.execute(query, (github,))
     row = DB.fetchone()
-    print """\
-Student: %s %s
-Github account: %s"""%(row[0], row[1], row[2])
+    return row 
 
 def get_project_by_title(title):
     query="""SELECT title, description, max_grade FROM Projects WHERE title = ?"""
@@ -51,12 +49,23 @@ def get_grades_by_student(student_github):
     query = """SELECT grade, project_title FROM Grades WHERE student_github = ?"""
     DB.execute(query, (student_github,))
     row = DB.fetchone()
-    print "Student github: %s"%student_github
+    list_of_grades = []
     while row != None:
-        print """\
-        Project title: %s
-        Grade: %d"""%(row[1], row[0])
+        list_of_grades.append({'grade':row[0],'project_title':row[1]})
         row = DB.fetchone()
+    return list_of_grades
+
+# Create new function to get all student githubs for webapp
+def get_all_studentgrades(project_title):
+    query = """SELECT student_github, grade FROM Grades WHERE project_title = ?"""
+    DB.execute(query, (project_title,))
+    row = DB.fetchone()
+    list_of_studentgrades = []
+    while row != None:
+        list_of_studentgrades.append({'github':row[0],'grade':row[1]})
+        row = DB.fetchone()
+    return list_of_studentgrades
+
 
 def connect_to_db():
     global DB, CONN
@@ -86,6 +95,8 @@ def main():
             give_grade(*args)
         elif command == "show_grades":
             get_grades_by_student(*args)
+        elif command == "project_grades":
+            get_all_studentgrades(*args)
 
     CONN.close()
 

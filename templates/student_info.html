@@ -1,0 +1,10 @@
+<html>
+    <body>
+
+        {% for row in rows %}
+        <p>Grade: {{row.grade}}; <b><a href="http://localhost:5000/allgrades/{{row.project_title}}">{{row.project_title}}</A></b></p>
+        {% endfor %}
+
+        <p>These are all the grades for student: {{student_github}}.</p>
+    </body>
+</html>
