@@ -1,12 +1,14 @@
 <html>
     <body>
-        <a href="http://localhost:5000">Display User Grades</a> 
-        <a href="http://localhost:5000/addstudent">Create New Student Record</a> 
-        <a href="http://localhost:5000/addproject">Create New Project Record</a> 
-        <a href="http://localhost:5000/addgrade">Add Student Grade</a> 
+        <a href="/">Display User Grades</a> 
+        <a href="/addstudent">Create New Student Record</a> 
+        <a href="/addproject">Create New Project Record</a> 
+        <a href="/addgrade">Add Student Grade</a> 
+
+        <p>Number of grades: {{ rows | length }}</p>
 
         {% for row in rows %}
-        <p>Grade: {{row.grade}}; <b><a href="http://localhost:5000/allgrades/{{row.project_title}}">{{row.project_title}}</A></b></p>
+        <p>Grade: {{row.grade}}; <b><a href="/allgrades/{{row.project_title}}">{{row.project_title}}</A></b></p>
         {% endfor %}
 
         <p>These are all the grades for student: {{student_github}}.</p>

@@ -14,9 +14,10 @@ def get_studentgrades():
     hackbright_app.connect_to_db()
     student_github = request.args.get("student")
     rows = hackbright_app.get_grades_by_student(student_github)
-    html = render_template("student_info.html", rows = rows , student_github = student_github)
+    html = render_template("student_info.html", rows = rows , student_github = student_github) 
 # Note need to put student_github in there so it passes through Jinja - left side goes to Jinja/html, right side references python var
     return html
+# created list of dictionaries in SQL hackbright_app.py to reference in Jinja html
 
 # get all student grades for particular project with links back to get_studentgrades()
 @app.route("/allgrades/<projectname>")
