@@ -29,6 +29,7 @@ def make_new_project(title, description, max_grade):
     DB.execute(query, (title, description, int(max_grade)))
     CONN.commit()
     print "Successfully added project: %s %s %d"%(title, description, int(max_grade))
+# TODO add checks for whether project already exists. Is it case sensitive? 
 
 def get_grade_by_project(student_github, project_title):
     query = """SELECT student_github, project_title, grade FROM Grades WHERE student_github = ? AND project_title = ?"""
@@ -43,7 +44,7 @@ def give_grade(student_github, project_title, grade):
     query = """INSERT into Grades values (?, ?, ?)"""
     DB.execute(query, (student_github, project_title, grade))
     CONN.commit()
-    print "Successfully added grade: %s %s %d"%(student_github, project_title, grade)
+    # print "Successfully added grade: %s %s %d"%(student_github, project_title, grade)
 
 def get_grades_by_student(student_github):
     query = """SELECT grade, project_title FROM Grades WHERE student_github = ?"""
@@ -92,6 +93,7 @@ def main():
         elif command == "grade":
             get_grade_by_project(*args)
         elif command == "assign_grade":
+# TODO Need to add checks if project exists. How would you display on webpage? (create a new page?)
             give_grade(*args)
         elif command == "show_grades":
             get_grades_by_student(*args)

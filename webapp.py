@@ -61,5 +61,24 @@ def addproject():
             projectdescription = projectdescription, maxprojectgrade = maxprojectgrade)
     return html
 
+# pair of handlers to add grade on given project
+@app.route("/addgrade")
+def get_addgrade():
+    return render_template("get_addgrade.html")
+
+
+# TODO (Optional) How would you display student name with github? 
+@app.route("/newgrade")
+def addgrade():
+    hackbright_app.connect_to_db()
+    student_github = request.args.get("github")
+    project_title = request.args.get("project")
+    student_grade = request.args.get("grade")
+    hackbright_app.give_grade(student_github, project_title, student_grade)
+    html = render_template("addedgrade.html", project_title = project_title, 
+            student_github = student_github, student_grade = student_github)
+    return html
+
+
 if __name__ == "__main__":
     app.run(debug=True)
